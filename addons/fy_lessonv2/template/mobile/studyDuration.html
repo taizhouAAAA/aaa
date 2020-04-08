@@ -1,0 +1,80 @@
+<!--
+ * ============================================================================
+ * 版权所有 2015-2018 微课堂团队，并保留所有权利。
+ * 网站地址: https://wx.haoshu888.com；
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！已购买用户允许对程序代码进行修改和使用，但是不允许对
+ * 程序代码以任何形式任何目的的再发布，作者将保留追究法律责任的权力和最终解
+ * 释权。
+ * ============================================================================
+-->
+{template '_headerv2'}
+
+<div class="header-2 cbox">
+	<a href="javascript:history.go(-1);" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+</div>
+
+{if $op=='display'}
+<link href="{MODULE_URL}template/mobile/style/cssv2/studyDuration.css?v={$versions}" rel="stylesheet" />
+<link href="{MODULE_URL}template/mobile/style/alert/alert.css?v={$versions}" rel="stylesheet" />
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/alert/alert.js?v={$versions}"></script>
+
+<div class="study-main">
+	<section class="info">
+		<ul>
+			<li>
+				<p class="info-title">今天学习</p>
+				<p class="info-cnt"> <span class="info-cnt-num">{$total_duration}</span>分钟 </p>
+			</li>
+			<li>
+				<p class="info-title">今天已兑换</p>
+				<p class="info-cnt"> <span class="info-cnt-num">{$today_already_credit1}</span>积分 </p>
+			</li>
+			<li>
+				<p class="info-title">高于平台</p>
+				<p class="info-cnt"> <span class="info-cnt-num">{php echo intval($durationLog['ranking']);}%</span>学员 </p>
+			</li>
+		</ul>
+		<p class="info-des">
+			每学习1分钟可以兑换{$duration_setting['exchange_credit1']}积分，每天最多可兑换{$max_exchange_credit1}积分
+		</p>
+	</section>
+	<section class="exchange">
+		<p class="exchange-des">当前可兑换积分</p>
+		<p class="exchange-price"> <i class="icon-font i-kedian exchange-price-kedian"></i> <span class="exchange-price-num js-price">{$today_remain_credit1}</span>
+		</p>
+		<a class="exchange-btn js-exchange">兑换</a>
+	</section>
+</div>
+
+<footer>
+	<a href="{php echo $this->createMobileUrl('index', array('t'=>1));}">{$setting['copyright']}</a>
+</footer>
+
+<script type="text/javascript">
+$(".exchange-btn").click(function(){
+	var setTitle = '系统提示';
+	var setContents = '';
+	var setButton = '';
+	var setCancelUrl = 'javascript:;';
+	var setConfirmUrl = 'javascript:;';
+
+	var remain_exchange = <?php echo $today_remain_credit1; ?>;
+	if(remain_exchange<=0){
+		setContents = '您没有可兑换积分，赶紧去学习吧~';
+		setButton = '["稍后再说","前往学习"]';
+		setConfirmUrl = "{php echo $this->createMobileUrl('index', array('t'=>1));}";
+		$(this).openWindow(setTitle,setContents,setButton,setCancelUrl,setConfirmUrl);
+	}else{
+		setContents = '您将使用学习时长兑换'+remain_exchange+'积分，是否继续?';
+		setButton = '["取消","确定"]';
+		setConfirmUrl = "{php echo $this->createMobileUrl('studyDuration', array('op'=>'exchange'));}";
+		$(this).openWindow(setTitle,setContents,setButton,setCancelUrl,setConfirmUrl);
+	}
+});
+</script>
+
+{/if}
+
+{template '_footerv2'}

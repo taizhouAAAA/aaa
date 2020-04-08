@@ -1,0 +1,50 @@
+.tabbar_wrap .weui_tabbar_item .weui_tabbar_label{
+	color: #555555;  /* 底部导航栏字体未选中颜色 */
+}
+.tabbar_wrap .weui_tabbar_item.weui_bar_item_on .weui_tabbar_label{
+	color: #eab907;  /* 底部导航栏字体选中颜色 */
+}
+
+.BreakingNewsController ul li a{
+	color: #333;  /* 首页公告颜色 */
+}
+.BreakingNewsController .bn-arrows{
+	color: red;  /* 首页公告右侧[更多]颜色 */
+}
+
+.newlesson-list li a.package .package__content .package__name{
+	color: #333333;  /* 首页最新更新课程标题颜色 */
+}
+.newlesson-list li a.package .package__content .package__info .section-title-color{
+	color: #f6686e;  /* 首页最新更新课程章节颜色 */
+}
+.newlesson-list li a.package .package__content .package__info .update-time-color{
+	color: #808080;  /* 首页最新更新课程更新时间颜色 */
+}
+
+.course_wrap .course_hd .bor-l{
+	background: #5492f9;  /* 首页课程板块名称前面竖杠颜色 */
+}
+.course_wrap .course_hd{
+	color: #333333;  /* 首页课程板块名称颜色 */
+}
+.course_wrap .more{
+	color: red;  /* 首页课程板块右侧[更多]颜色 */
+}
+.course-price-color{
+	color: red;  /* 课程列表价格颜色 */
+}
+.section-status-btn{
+	color: #fff;  /* 课程列表[已完结]颜色 */
+	background-color: #619cfd;  /* 课程列表[已完结]背景颜色 */
+}
+.section-update-num{
+	color: #4285f4;  /* 课程列表已更新课程数量背景颜色 */
+}
+.sale-on-btn{
+	color: #fff;  /* 课程列表[仅剩:]颜色 */
+	background-color: #f55245;  /* 课程列表[仅剩:]背景颜色 */
+}
+.course-buy-num {
+	color: #4285f4;  /* 课程列表已学习人数颜色 */
+}

@@ -1,0 +1,239 @@
+<!-- 
+ * 申请讲师
+ * ============================================================================
+ * 版权所有 2015-2018 微课堂团队，并保留所有权利。
+ * 网站地址: https://wx.haoshu888.com
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！不允许对程序代码以任何形式任何目的的再发布，作者将保留
+ * 追究法律责任的权力和最终解释权。
+-->
+{template '_headerv2'}
+<link href="{MODULE_URL}template/mobile/style/cssv2/applyteacher.css?v={$versions}" rel="stylesheet" />
+<style type="text/css">
+.tabbar_wrap {
+	-webkit-overflow-scrolling: unset;
+}
+</style>
+{if $op=='display'}
+<div class="header-2 cbox">
+	<a href="javascript:history.go(-1);" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+</div>
+
+<form enctype="multipart/form-data" method="post" action="{php echo $this->createMobileUrl('applyteacher', array('op'=>'postteacher'));}">
+	<article class="info">
+		<div class="welcome">
+			{if $font['nickname']}
+				<p>{$font['nickname']}</p>
+			{else}
+				<p>尊敬的<span class="title">{$lessonmember['mnickname']}</span>:</p>
+			{/if}
+			<p class="descript">{php echo $font['first'] ? $font['first'] : '欢迎申请成为讲师，认真填写以下各项信息有利于审核通过哦~'}</p>
+		</div>
+
+		<ul>
+			<li>
+				<div class="left">
+					{php echo $font['teacherName'] ? $font['teacherName'] : '讲师名称'}：
+				</div>
+				<div class="right">
+					<input type="text" name="teacher" id="teacher" value="{$teacherlog['teacher']}{if !empty($teacherlog['teacher']) && $teacherlog['status']==1}[不可修改]{/if}" {if !empty($teacherlog['teacher']) && $teacherlog['status']==1}readonly{/if} />
+				</div>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<div class="left">
+					{php echo $font['teacherQQ'] ? $font['teacherQQ'] : '讲师QQ'}：
+				</div>
+				<div class="right">
+					<input type="text" name="qq" id="qq" value="{$teacherlog['qq']}{if !empty($teacherlog['qq']) && $teacherlog['status']==1}[不可修改]{/if}" {if !empty($teacherlog['qq']) && $teacherlog['status']==1}readonly{/if} />
+				</div>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<div class="left">
+					{php echo $font['qqGroup'] ? $font['qqGroup'] : 'QQ群'}：
+				</div>
+				<div class="right">
+					<input type="text" name="qqgroup" id="qqgroup" value="{$teacherlog['qqgroup']}{if !empty($teacherlog['qqgroup']) && $teacherlog['status']==1}[不可修改]{/if}" {if !empty($teacherlog['qqgroup']) && $teacherlog['status']==1}readonly{/if} />
+				</div>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<div class="left">
+					{php echo $font['teacherDesc'] ? $font['teacherDesc'] : '讲师介绍'}：
+				</div>
+				<div class="right">
+					<textarea name="teacherdes" id="teacherdes">{$teacherlog['teacherdes']}</textarea>
+				</div>
+				<div class="clear"></div>
+			</li>
+		</ul>
+	</article>
+
+	<section class="logo-license">
+		<div class="half">
+			<a class="logo" id="logox">
+				<img id="teacherphoto_show" src="{php echo $teacherlog['teacherphoto'] ? $_W['attachurl'].$teacherlog['teacherphoto'] : MODULE_URL.'template/mobile/images/applyteacher-avatar.png';}"/>
+			</a>
+			<p>{php echo $font['teacherPhoto'] ? $font['teacherPhoto'] : '上传讲师头像'}</p>
+			<input type="hidden" name="teacherphoto" id="teacherphoto_hide" value="{$teacherlog['teacherphoto']}"/>
+		</div>
+		<div class="half">
+			<div class="uploader blue">
+				<input type="text" class="filename" readonly value="{php echo $font['teacherQrcode'] ? $font['teacherQrcode'] : '微信二维码'}"/>
+				<a class="license">
+					<img id="qrcode_url_show" src="{php echo $teacherlog['weixin_qrcode'] ? $_W['attachurl'].$teacherlog['weixin_qrcode'] : MODULE_URL.'template/mobile/images/applyteacher-qrcode.png';}"/>
+				</a>
+				<input id="uploadFile2" name="uploadFile" class="file-3" type="file" size="30" onchange="uploadImage(2);" accept="image/*" />
+				<input type="hidden" name="weixin_qrcode" id="qrcode_url_hide" value="{$teacherlog['weixin_qrcode']}"/>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="help-block">
+			{php echo $font['photoDesc'] ? $font['photoDesc'] : '头像和二维码建议尺寸200*200像素，格式为jpg'}
+		</div>
+	</section>
+
+	<article class="htmleaf-container">
+		<div id="clipArea"></div>
+		<div class="foot-use">
+			<div class="uploader1 blue">
+				<input type="button" name="file" class="button" value="打开"/>
+				<input id="file" type="file" accept="image/*" multiple />
+			</div>
+			<input id="clipBtn" value="截取" />
+		</div>
+		<div id="view"></div>
+	</article>
+
+	<section class="applyteacher_main">
+		<div class="title">{php echo $font['descTitle'] ? $font['descTitle'] : '讲师特权'}</div>
+		<div class="vip_main">
+			<div class="vip">
+				<div class="ico1"><i class="fa fa-qrcode"></i></div>
+				<div class="text">
+					<div class="t1">{php echo $font['incomeTitle'] ? $font['incomeTitle'] : '课程收入'}</div>
+					<div class="t2">{php echo $font['incomeDesc'] ? $font['incomeDesc'] : '课程每出售一次，即可收入课程佣金'}</div>
+				</div>
+			</div>
+			<div class="vip">
+				<div class="ico2"><i class="fa fa-cny"></i></div>
+				<div class="text">
+					<div class="t1">{php echo $font['cashTitle'] ? $font['cashTitle'] : '自由提现'}</div>
+					<div class="t2">{php echo $font['cashDesc'] ? $font['cashDesc'] : '收入存入账户，可提现到微信钱包'}</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<article class="btn-1">
+		<button onclick="return checksubmit();">提交申请</button>
+	</article>
+</form>
+
+<footer>
+    <a href="{php echo $this->createMobileUrl('index', array('t'=>1));}">{$setting['copyright']}</a>
+</footer>
+
+<div id="spinners" style="display:none;"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>
+
+<script type="text/javascript">
+	function checksubmit() {
+        var teacher = $("#teacher").val();
+        var teacherdes = $("#teacherdes").val();
+        var teacherphoto = $("input[name='teacherphoto']").val();
+
+        if (teacher == "") {
+            alert("请填写讲师名称");
+            return false;
+        }
+        if (teacherdes == "") {
+            alert("请填写讲师介绍");
+            return false;
+        }
+		if (teacherphoto == "") {
+            alert("请上传讲师相片");
+            return false;
+        }
+        document.getElementById("spinners").style.display = 'block';
+        return true;
+    }
+</script>
+
+<script src="{MODULE_URL}template/mobile/style/jsv2/photoClip/iscroll-zoom.js"></script>
+<script src="{MODULE_URL}template/mobile/style/jsv2/photoClip/hammer.js"></script>
+<script src="{MODULE_URL}template/mobile/style/jsv2/photoClip/jquery.photoClip.js"></script>
+<script type="text/javascript">
+	$("#logox").click(function(){
+		$(".htmleaf-container").show();
+	})
+</script>
+<script>
+    var obUrl = ''
+    $("#clipArea").photoClip({
+        width: 199,
+        height: 199,
+        file: "#file",
+        view: "#view",
+        ok: "#clipBtn",
+        loadStart: function() {
+            console.log("照片读取中");
+        },
+        loadComplete: function() {
+            console.log("照片读取完成");
+        },
+        clipFinish: function(dataURL) {
+            uploadPhotoImage(dataURL);
+			$(".htmleaf-container").hide();
+        }
+    });
+</script>
+<script type="text/javascript">
+	function uploadPhotoImage(dataURL){
+		$.ajax({
+			 url: '{php echo $this->createMobileUrl("AjaxUploadImage", array("type"=>"base64"));}',
+			type: 'POST',
+			data: {imageData: dataURL},
+			dateType: "json",
+			success:function(data){
+				var res = JSON.parse(data);
+				$("#teacherphoto_show").attr("src", "<?php echo $_W['attachurl']; ?>" + res.path);
+				$("#teacherphoto_hide").val(res.path);
+			}
+		})
+	}
+</script>
+
+<script src="{MODULE_URL}template/mobile/style/jsv2/ajaxfileupload.js"></script>
+<script type="text/javascript">
+	function uploadImage(idx){
+		document.getElementById("spinners").style.display = 'block';
+		$.ajaxFileUpload({
+				url:'{php echo $this->createMobileUrl("AjaxUploadImage");}',
+				secureuri:false,
+				fileElementId:'uploadFile'+idx,
+				dataType: 'json',
+				success: function (data, status){
+					if(data.success == true){
+						if(idx==2){
+							$("#qrcode_url_show").attr("src", "<?php echo $_W['attachurl']; ?>" + data.path);
+							$("#qrcode_url_hide").val(data.path);
+						}
+					}else{
+						alert("上传失败，请稍候重试");
+					}
+					document.getElementById("spinners").style.display = 'none';
+				},
+				error: function(data, status, e) {
+					alert("网络错误，请稍候重试");
+					document.getElementById("spinners").style.display = 'none';
+				}
+		});
+		return false;
+	}
+</script>
+
+{/if}
+
+{template '_footerv2'}

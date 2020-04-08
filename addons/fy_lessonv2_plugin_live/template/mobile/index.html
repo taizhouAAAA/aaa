@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no">
+	<meta name="full-screen" content="yes">
+	<meta name="browsermode" content="application">
+	<meta name="x5-orientation" content="portrait">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="x5-page-mode" content="app">
+	<script src="{MODULE_URL}/static/js/jquery-1.8.3.min.js"></script>
+	<script src="{MODULE_URL}/static/js/tim-js.js"></script>
+	<script src="{MODULE_URL}/static/js/cos-js-sdk-v5.min.js"></script>
+	<title>IM项目</title>
+</head>
+
+<body>
+
+
+
+
+<script type="text/javascript">
+	var options = {
+	  SDKAppID: {$tencent_im['appid']} // 接入时需要将0替换为您的即时通信 IM 应用的 SDKAppID
+	};
+	// 创建 SDK 实例，`TIM.create()`方法对于同一个 `SDKAppID` 只会返回同一份实例
+	var tim = TIM.create(options);
+	// 设置 SDK 日志输出级别，详细分级请参见 setLogLevel 接口的说明
+	tim.setLogLevel(0); // 普通级别，日志量较多，接入时建议使用
+	tim.setLogLevel(1); // release 级别，SDK 输出关键信息，生产环境时建议使用
+
+	// 注册 COS SDK 插件
+	tim.registerPlugin({'cos-js-sdk': COS});
+	
+	var im_userSign = "{$userSign}";
+	if(im_userSign===''){
+		console.log('游客访问');
+	}
+
+	var nickname = "{$nickname}"; //当前用户昵称
+	var roomid = "{$roomid}"; //聊天室id
+	var imLogin = false; //登录成功标记
+
+	//登录im
+	let promise = tim.login({userID: nickname, userSig: im_userSign});
+	promise.then(function(imResponse) {
+		imLogin = true;
+		console.log('登录成功');
+	}).catch(function(imError) {
+		alert(imError.message);
+	});
+
+	var create_room_status = "{$create_room_status}";
+	if(create_room_status == '-1'){
+		alert('进入直播间聊天室失败，请稍后重试');
+	}
+
+	tim.on(TIM.EVENT.SDK_READY, function(event) {
+		let promise = tim.joinGroup({ groupID: "{$roomid}", type: TIM.TYPES.GRP_CHATROOM });
+		promise.then(function(imResponse) {
+		  switch (imResponse.data.status) {
+			case TIM.TYPES.JOIN_STATUS_WAIT_APPROVAL: // 等待管理员同意
+			  break;
+			case TIM.TYPES.JOIN_STATUS_SUCCESS: // 加群成功
+			  console.log(imResponse.data.group); // 加入的群组资料
+			  break;
+			case TIM.TYPES.JOIN_STATUS_ALREADY_IN_GROUP: // 已经在群中
+			  console.log('您已在该聊天室中'); // 加入的群组资料
+			  break;
+			default:
+			  break;
+		  }
+		}).catch(function(imError){
+			alert("加入聊天室失败，原因：" + imError);
+			console.warn('joinGroup error:', imError); // 申请加群失败的相关信息
+		});
+	});
+
+
+tim.on(TIM.EVENT.SDK_READY, function(event) {
+	//创建文本消息
+		let message = tim.createTextMessage({
+			to: "{$roomid}",
+			conversationType: TIM.TYPES.CONV_GROUP,
+			payload: {
+				text: "aaaaaaaa",
+			}
+		});
+
+		//发送文本消息
+		let promise = tim.sendMessage(message);
+		promise.then(function(imResponse) {
+			console.log(imResponse);
+		}).catch(function(imError) {
+			console.warn('发送消息失败:', imError);
+		});
+});
+
+let onMessageReceived = function(event) {
+  // event.data - 存储 Message 对象的数组 - [Message]
+  console.log(event.data);
+};
+tim.on(TIM.EVENT.MESSAGE_RECEIVED, onMessageReceived);
+
+</script>
+
+</body>
+</html>

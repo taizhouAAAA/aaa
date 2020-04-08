@@ -1,0 +1,70 @@
+
+		<!-- 底部导航 -->
+		<div class="weui_tabbar {if ($_GPC['do']=='lesson' && $section['sectiontype']!=2) || $_GPC['do']=='confirm'}hidden{/if}">
+
+			<a href="{$navigation['index']['url_link']}" class="weui_tabbar_item {if $foot_params['index']}weui_bar_item_on{/if}">
+				<div class="weui_tabbar_icon">
+					{if $foot_params['index']}
+						<img src="{$navigation['index']['selected_icon']}" />
+					{else}
+						<img src="{$navigation['index']['unselected_icon']}" />
+					{/if}
+				</div>
+				<p class="weui_tabbar_label">{$navigation['index']['nav_name']}</p>
+			</a>
+
+			<a href="{$navigation['search']['url_link']}" class="weui_tabbar_item {if $foot_params['search']}weui_bar_item_on{/if}">
+				<div class="weui_tabbar_icon">
+					{if $foot_params['search']}
+						<img src="{$navigation['search']['selected_icon']}" />
+					{else}
+						<img src="{$navigation['search']['unselected_icon']}" />
+					{/if}
+				</div>
+				<p class="weui_tabbar_label">{$navigation['search']['nav_name']}</p>
+			</a>
+
+			{if $navigation['diynav']}
+				<a href="{$navigation['diynav']['url_link']}" class="weui_tabbar_item {if $foot_params['diynav']}weui_bar_item_on{/if}">
+					<div class="weui_tabbar_icon">
+						{if $foot_params['diynav']}
+							<img src="{$navigation['diynav']['selected_icon']}" />
+						{else}
+							<img src="{$navigation['diynav']['unselected_icon']}" />
+						{/if}
+					</div>
+					<p class="weui_tabbar_label">{$navigation['diynav']['nav_name']}</p>
+				</a>	
+			{/if}
+
+			<a href="{$navigation['mylesson']['url_link']}" class="weui_tabbar_item {if $foot_params['mylesson']}weui_bar_item_on{/if}">
+				<div class="weui_tabbar_icon">
+					{if $foot_params['mylesson']}
+						<img src="{$navigation['mylesson']['selected_icon']}" />
+					{else}
+						<img src="{$navigation['mylesson']['unselected_icon']}" />
+					{/if}
+				</div>
+				<p class="weui_tabbar_label">{$navigation['mylesson']['nav_name']}</p>
+			</a>
+
+			<a href="{$navigation['self']['url_link']}" class="weui_tabbar_item {if $foot_params['self']}weui_bar_item_on{/if}">
+				<div class="weui_tabbar_icon">
+					{if $foot_params['self']}
+						<img src="{$navigation['self']['selected_icon']}" />
+					{else}
+						<img src="{$navigation['self']['unselected_icon']}" />
+					{/if}
+				</div>
+				<p class="weui_tabbar_label">{$navigation['self']['nav_name']}</p>
+			</a>
+		</div>
+		<!-- /底部导航 -->
+	</div>
+</div>
+
+<div style="display:none;">
+	{php echo html_entity_decode($config['statis_code']);}
+</div>
+</body>
+</html>

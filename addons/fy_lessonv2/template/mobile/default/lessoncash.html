@@ -1,0 +1,176 @@
+<!-- 
+ * 讲师课程佣金提现
+ * ============================================================================
+ * 版权所有 2015-2018 微课堂团队，并保留所有权利。
+ * 网站地址: https://www.fylesson.com
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件，未购买授权用户无论是否用于商业行为都是侵权行为！
+ * 允许已购买用户对程序代码进行修改并在授权域名下使用，但是不允许对程序代码以
+ * 任何形式任何目的进行二次发售，作者将依法保留追究法律责任的权力和最终解释权。
+ * ============================================================================
+-->
+{template $template.'/_headerv2'}
+<link href="{MODULE_URL}template/mobile/{$template}/style/cssv2/commission.css?v={$versions}" rel="stylesheet" />
+<style type="text/css">
+.tabbar_wrap {
+	-webkit-overflow-scrolling: unset;
+}
+</style>
+<div class="header-2 cbox">
+	<a href="javascript:history.go(-1);" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+</div>
+
+<form method="post" action="" onsubmit="return checknum();">
+	<div class="lesson_cash">
+		<div class="balance_img" style="background-image:url({$avatar});"></div>
+		<div class="balance_text">当前总金额</div>
+		<div class="balance_num">￥{$member['nopay_lesson']}</div>
+
+		<div class="input-group">
+			<label for="wdname">提现方式</label>
+			<select name="cash_way" class="form_select xl" id="cash_way" onchange="selCashType(this.value)">
+				{if !empty($setting_cashway)}
+						<option value="">请选择提现方式</option>
+					{loop $setting_cashway $way}
+						{if $way=='credit'}
+						<option value="1"> 提现到余额</option>
+						{/if}
+						{if $way=='weachat'}
+						<option value="2"> 提现到微信钱包</option>
+						{/if}
+						{if $way=='alipay'}
+						<option value="3"> 提现到支付宝</option>
+						{/if}
+					{/loop}
+				{else}
+					<option value="">暂无有效提现方式，请联系管理员</option>
+				{/if}
+			</select>
+			<div class="input-group" id="pay_account" style="display:none;">
+				<label for="pay_account">支付宝帐号</label>
+				<input type="text" name="pay_account" value="{$lastcashlog['pay_account']}" placeholder="请输入支付宝帐号">
+			</div>
+			<div class="input-group" id="pay_name" style="display:none;">
+				<label for="pay_account">支付宝姓名</label>
+				<input type="text" name="pay_name" value="{$lastcashlog['pay_name']}" placeholder="请输入支付宝户主姓名">
+			</div>
+			<div class="input-group">
+				<label for="pay_account">提现金额</label>
+				<input type="tel" name="cash_num" id="cash_num" placeholder="请输入提现金额" onkeyup="countServiceAmount()" onBlur="countServiceAmount()">
+			</div>
+			<div class="input-group service-tip">
+				<label></label>
+				<input class="service-tip-input" id="service-tip-input" value="" readonly>
+			</div>
+		</div>
+	</div>
+
+	<div class="weui-btn-area">
+		<input type="hidden" name="token" value="{$_W['token']}" />
+		<input type="submit" name="submit" class="weui-btn weui-btn_primary" value="提交申请" style="width:90%;" />
+		<div class="weui-btn weui-btn_primary" onclick="location.href = '{php echo $this->createMobileUrl('lessoncashlog');}'" style="width:90%;background-color:#E2CB04;">提现记录</div>
+	</div>
+</form>
+
+<div id="loadingToast" style="display: none;">
+	<div class="weui-mask_transparent"></div>
+	<div class="weui-toast">
+		<i class="weui-loading weui-icon_toast"></i>
+		<p class="weui-toast__content">提交数据中</p>
+	</div>
+</div>
+	
+<script type="text/javascript">
+var cash_lower = {php echo $comsetting['cash_lower_teacher']};
+var nopay_lesson = {php echo $member['nopay_lesson']};
+var cash_service_num = {php echo $comsetting['cash_service_num']};
+var total = Math.floor(nopay_lesson/(1 + cash_service_num*0.01)*100)/100;
+
+function checknum(){
+	var cash_way = $("#cash_way").val();
+	var num = ($("#cash_num").val()) * 1;
+	var pay_account = $("input[name=pay_account]").val();
+	var pay_name = $("input[name=pay_name]").val();
+	
+	if(cash_way==''){
+		alert("请选择提现方式");
+		return false;
+	}
+	if(cash_way==3 && pay_account==''){
+		alert("请输入提现帐号");
+		return false;
+	}
+	if(cash_way==3 && pay_name==''){
+		alert("请输入提现户主姓名");
+		return false;
+	}
+	if(num=='' || num<=0){
+		alert("请输入提现金额");
+		return false;
+	}
+	if(cash_way==1){
+		if(num > nopay_lesson){
+			alert("您当前可提现额度为"+nopay_lesson+"元");
+			return false;
+		}
+	}else{
+		if(num > total){
+			alert("您当前可提现额度为"+total+"元");
+			return false;
+		}
+	}
+	if(num < cash_lower){
+		alert("当前系统最低提现额度为"+cash_lower+"元");
+		return false;
+	}
+
+	$("#loadingToast").show();
+}
+
+function countServiceAmount(){
+	var cash_way = $("#cash_way").val();
+	var num = ($("#cash_num").val()) * 1;
+	if(cash_way >1){
+		var service_amount = num * cash_service_num * 0.01;
+		service_amount = service_amount.toFixed(2);
+		if(service_amount>0){
+			if(num > total){
+				$("#service-tip-input").val("输入金额超过可提现金额");
+				$("#service-tip-input").addClass('red-color');
+			}else{
+				if(cash_service_num>0){
+					$("#service-tip-input").val("额外扣除￥" + service_amount + "手续费");
+					$("#service-tip-input").removeClass('red-color');
+				}
+			}
+		}else{
+			if(cash_service_num>0){
+				$("#service-tip-input").val("额外扣除{$comsetting['cash_service_num']}%手续费");
+				$("#service-tip-input").removeClass('red-color');
+			}
+		}
+	}else{
+		if(num > nopay_lesson){
+			$("#service-tip-input").val("输入金额超过可提现金额");
+			$("#service-tip-input").addClass('red-color');
+		}else{
+			$("#service-tip-input").val("");
+			$("#service-tip-input").removeClass('red-color');
+		}
+	}
+}
+
+function selCashType(cash_type){
+	if(cash_type==3){
+		document.getElementById("pay_account").style.display = 'block';
+		document.getElementById("pay_name").style.display = 'block';
+	}else{
+		document.getElementById("pay_account").style.display = 'none';
+		document.getElementById("pay_name").style.display = 'none';
+	}
+	countServiceAmount();
+}
+</script>
+
+{template $template.'/_footerv2'}

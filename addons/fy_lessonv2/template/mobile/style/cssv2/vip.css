@@ -1,0 +1,301 @@
+.myvip-bg {
+	font-family: "微软雅黑";
+	line-height: 40px;
+	color: #999;
+	font-size: 13px;
+	border-bottom: 1px solid #efefef;
+}
+.myvip-bg .vip-back {
+	width: 100%;
+}
+.myvip-bg .vip-back img {
+	max-width: 100%;
+	vertical-align: middle;
+	border: 0;
+}
+
+
+.my-vip-info{
+	padding: 8px 0px;
+	background-color: #FFFFFF;
+	border-top: 3px #e4e4e4 solid;
+}
+.my-vip-info .vip-prompt {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 15px;
+}
+.my-vip-info .vip-prompt .red {
+	padding: 5px 15px;
+	border: 1px solid #BC2838;
+	border-radius: 20px;
+	font-size: 13px;
+}
+.my-vip-info .vip-prompt .green {
+	color: #2b9c05;
+	padding: 5px 15px;
+	border: 1px solid #2b9c05;
+	border-radius: 20px;
+	font-size: 13px;
+}
+
+.my-vip-info .myvip-title li {
+	font-family: "微软雅黑";
+	font-size: 14px;
+	float: left;
+	margin: 0;
+	padding: 5px 0;
+	text-align: center;
+}
+.my-vip-info .myvip-list{
+	margin: 7px 0;
+	max-height: 50px;
+}
+.my-vip-info .myvip-list li {
+	font-family: "微软雅黑";
+	font-size: 14px;
+	float: left;
+	text-align: center;
+	max-height: 42px;
+    overflow: hidden;
+}
+
+.my-vip-info .myvip-list .buybtn a {
+	color: #FFFFFF;
+	display: inline-block;
+	width: 50px;
+	padding: 4px 15px;
+	background-color: #F1C332;
+	border-radius: 7px;
+	border: 1px solid #F1C332;
+}
+
+
+.vip-menu {
+	background: #FFF;
+	border-bottom: 1px solid #e8e8e8;
+	box-shadow: 0 3px 7px #eaeaea;
+	width: 100%;
+}
+.vip-menu>h2 {
+	font-size: 14px;
+	line-height: 40px;
+	border-bottom: 1px solid #F1F1F1;
+	padding: 0 12px;
+	color: #999;
+}
+.vip-menu>h2>a {
+	display: block;
+}
+.vip-menu .my-vip-icon{
+	width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    background: url(../../images/my-vip-icon.png);
+}
+.vip-menu .my-viporder-icon{
+	width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    background: url(../../images/my-viporder-icon.png);
+}
+.vip-menu_one {
+	background: #FFF;
+}
+.vip-menu>ul>li {
+	cursor:pointer;
+	text-align: center;
+	font-size: 14px;
+	padding: 10px 0;
+	margin-bottom: 0;
+}
+.vip-menu>ul>li.active{
+	color: #ffac0e;
+}
+
+.am-avg-sm-5>li {
+	width: 25%;
+	float: left;
+}
+.vip-menu>h2>a {
+	display: block;
+}
+.vip-menu>ul>li.w-col-5 {
+	width: 49%;
+}
+.vip-menu>ul>li.w-col-5:first-child {
+	border-right: 1px solid #efefef;
+}
+.vip-menu>ul>li.w-col-5 i {
+	font-size: 16px;
+	display: inline-block;
+	line-height: 30px;
+	color: #999;
+	margin-right: 5px;
+}
+
+
+.buyvip{
+	margin:10px auto;
+	background: #fff;
+	border-top: 8px #e4e4e4 solid;
+}
+.buyvip li {
+    font-family: "微软雅黑";
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+}
+.buyvip li {
+    clear: left;
+    width: 98%;
+    height: 90px;
+    border-bottom: 1px solid #efefef;
+    padding: 0 1%;
+}
+.buyvip .vip-icon {
+    display: block;
+    float: left;
+    margin-top: 20px;
+}
+.buyvip .vip-icon img {
+    width: 50px;
+    height: 50px;
+}
+.buyvip .notice_active {
+    display: block;
+    float: left;
+    width: 60%;
+    text-align: left;
+    padding-left: 10px;
+	margin-top: 3px;
+}
+.buyvip span.price {
+	color: #c56b29;
+    font-size: 22px;
+    font-weight: bold;
+}
+.buyvip .vip-name{
+	color: #886d27;
+}
+.buyvip .vip-time{
+	color: #989898;
+}
+.buyvip .buybtn {
+    display: inline-block;
+    float: right;
+    background: #edd5a0;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-top: 32px;
+	margin-right: 5px;
+    font-size: 14px;
+    max-width: 15%;
+}
+.buyvip .buybtn a{
+	color: #5f462b;
+	padding: 0px 5px;
+}
+.buyvip .no-content {
+	padding: 40px 0;
+	margin: 0 auto;
+	text-align: center;
+}
+.buyvip .vip-card {
+	padding: 30px 0;
+	text-align: center;
+	background: #f1f1f5;
+}
+
+.buyvip .vip-card .vip-gallery {
+	font-size: 16px;
+	text-align: center;
+	font-family: "微软雅黑";
+	color: #606060;
+	display: inline-block;
+	padding: 9px 0;
+	background-image: url(../../images/vipcard-bg.png);
+    width: 90%;
+    height: 100%;
+	border-radius: 25px;
+}
+
+
+.my-vip-info .vipdesc {
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+.my-vip-info .vipdesc .content {
+	padding: 15px;
+}
+
+
+.vip-order-list{
+	padding: 10px;
+	background: #fff;
+	border-top: 3px #e4e4e4 solid;
+}
+.vip-order-list .order-info {
+	padding: 0;
+	line-height: 40px;
+	color: #999;
+	font-size: 12px;
+	border-bottom: 1px solid #efefef;
+}
+.vip-order-list .order-info .order-time {
+	white-space: nowrap;
+}
+.vip-order-list .order-info .num-time {
+	white-space: nowrap;
+}
+.vip-order-list .myviplog {
+	border-bottom: 1px dashed #999;
+}
+.vip-order-list .myviplog h3 {
+	font-size: 13px;
+	line-height: 23px;
+}
+.vip-order-list .myviplog span {
+	height: 25px;
+	line-height: 25px;
+	color: #646464;
+	font-weight: bold;
+}
+
+
+
+/* 验证VIP服务卡 */
+.vipcard input {
+	-webkit-appearance: none;
+	outline: none;
+	border: none;
+}
+.vipcard .balance_num {
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+	line-height: 24px;
+	font-size: 22px;
+	color: #444;
+}
+.vipcard .balance_num .vipcard-title {
+	font-size: 14px;
+	float: left;
+	margin: 14px 14px 2px;
+}
+.vipcard .balance_sub {
+	height: 44px;
+	width: 94%;
+	margin: 14px 3% 0px;
+	background: #31cd00;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 44px;
+	color: #fff;
+}
+.vipcard .disabled {
+	background: #ccc;
+}

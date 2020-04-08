@@ -1,0 +1,155 @@
+<!--
+ * 课程文章详情页
+ * ============================================================================
+ * 版权所有 2015-2018 微课堂团队，并保留所有权利。
+ * 网站地址: https://wx.haoshu888.com；
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！已购买用户允许对程序代码进行修改和使用，但是不允许对
+ * 程序代码以任何形式任何目的的再发布，作者将保留追究法律责任的权力和最终解
+ * 释权。
+ * ============================================================================
+-->
+{template '_headerv2'}
+<link href="{MODULE_URL}template/mobile/style/cssv2/article.css?v={$versions}" rel="stylesheet" />
+
+<div class="header-2 cbox">
+	<a href="javascript:history.go(-1);" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+</div>
+
+<div class="rich_primary">
+	<div class="rich_title">{$section['title']}</div>
+	<div class="rich_mate">
+		<div class="rich_mate_text">{php
+		echo date('Y-m-d', $section['addtime']);}</div>
+		<div class="rich_mate_text"></div>
+		<a href="{php echo $this->createMobileUrl('teacher', array('teacherid'=>$lesson['teacherid']));}"><div class="rich_mate_text href">{$lesson['teacher']}</div></a>
+	</div>
+	<div class="rich_content">
+		{if !$common['article_page']}
+			{php echo htmlspecialchars_decode($section['content']);}
+		{/if}
+	</div>
+	{if $common['article_page']}
+	<div id="loading_div" class="loading_div">
+		<a href="javascript:void(0);" id="btn_Page"><i class="fa fa-arrow-circle-down"></i> 阅读更多</a>
+	</div>
+	{/if}
+	{if !empty($advs['img'])}
+	<div>
+		<a href="{$advs['link']}"><img src="{$_W['attachurl']}{$advs['img']}" style="width: 98%;"></a>
+	</div>
+	{/if}
+	<footer>
+		<a href="{php echo $this->createMobileUrl('index', array('t'=>1));}">{$setting['copyright']}</a>
+	</footer>
+</div>
+
+{if $common['article_page']}
+<div id="loading" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>
+
+<script type="text/javascript">
+var ajaxUrl = "{php echo $this->createMobileUrl('articlepage', array('id'=>$id,'sectionid'=>$sectionid,'type'=>'lesson'));}";
+var loading = document.getElementById("loading");
+$(function () {
+    var nowPage = 1; //设置当前页数，全局变量
+    function getData(page) {  
+        nowPage++; //页码自动增加，保证下次调用时为新的一页。  
+        $.get(ajaxUrl, {page: page}, function (data) {  
+            if (data.length > 0) {
+				loading.style.display = 'none';
+                var jsonObj = JSON.parse(data);
+                insertDiv(jsonObj);  
+            }
+        });  
+       
+    } 
+    //初始化加载第一页数据  
+    getData(1);
+
+    //生成数据html,append到div中  
+    function insertDiv(result) {  
+        var mainDiv =$(".rich_content");
+        var chtml = result.content;  
+        
+		mainDiv.append(chtml);
+		if(!result.content){
+			document.getElementById("loading_div").innerHTML='<div class="loading_bd">没有了，已经到底了</div>';
+		}
+    }  
+  
+    //==============核心代码=============  
+    var winH = $(window).height(); //页面可视区域高度   
+  
+    var scrollHandler = function () {  
+        var pageH = $(document.body).height();  
+        var scrollT = $(window).scrollTop(); //滚动条top   
+        var aa = (pageH - winH - scrollT) / winH;  
+        if (aa < 0.02) { 
+            if (nowPage % 1 === 0) {
+                getData(nowPage);  
+                $(window).unbind('scroll');  
+                $("#btn_Page").show();
+            } else {  
+                getData(nowPage);  
+                $("#btn_Page").hide();
+            }  
+        }  
+    }  
+    //定义鼠标滚动事件
+    $(window).scroll(scrollHandler);
+    //继续加载按钮事件
+    $("#btn_Page").click(function () {
+		loading.style.display = 'block';
+        getData(nowPage);
+        $(window).scroll(scrollHandler);
+    });
+  
+});
+</script>
+{/if}
+
+<script type="text/javascript">
+
+<?php if($sectionid>0){ ?>
+	var second = 0;
+	window.setInterval(function () {
+		second ++;
+		var submiting = false;
+
+		if(!submiting && second%30==0){
+			var recordurl = "{php echo $this->createMobileUrl('record', array('lessonid'=>$_GPC['id'],'sectionid'=>$_GPC['sectionid'],'uid'=>$uid,'sectiontype'=>$section['sectiontype']));}";
+			$.get(recordurl, {currentTime:second}, function (data){});
+			submiting = true;
+		}
+	}, 1000);
+<?php } ?>
+
+</script>
+
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+wx.ready(function(){
+	var shareData = {
+		title: "{$sharelesson['title']}",
+		desc: "{$sharelesson['title']}",
+		link: "{$sharelesson['link']}",
+		imgUrl: "{php echo $_W['attachurl'];}{php echo $sharelesson['images']?$sharelesson['images']:$lesson['images']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {
+			$.post("{php echo $this->createMobileUrl('sharecoupon');}");
+		},
+		cancel: function (res) {},
+		fail: function (res) {}
+	};
+	wx.onMenuShareTimeline(shareData);
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareQZone(shareData);
+	
+});
+</script>
+
+{template '_footerv2'}

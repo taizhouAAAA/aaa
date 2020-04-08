@@ -1,0 +1,72 @@
+<style type="text/css">
+.table-responsive .table>tbody>tr>td{vertical-align: middle;}
+</style>
+<div class="main">
+	<div class="panel panel-info">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+			<div class="form-group">
+				<div class="col-sm-3 col-lg-3">
+					<a class="btn btn-success" href="{php echo $this->createWebUrl('setting', array('op'=>'addNav'));}"> 添加导航</a>
+				</div>
+			</div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <form action="" method="post" class="form-horizontal form" >
+        <div class="table-responsive panel-body">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th style="width:8%;">ID</th>
+					<th style="width:15%;">导航位置</th>
+                    <th style="width:13%;">导航名称</th>
+					<th style="width:13%;">未选图标</th>
+                    <th style="width:13%;">已选图标</th>
+					<th style="width:13%;">链接</th>
+                    <th style="width:15%;">添加时间</th>
+                    <th style="text-align:right;">操作</th>
+                </tr>
+                </thead>
+                <tbody style="font-size: 13px;">
+                {loop $navigation $item}
+                <tr>
+                    <td>{$item['nav_id']}</td>
+					<td>{$nav_list[$item['nav_ident']]['name']}</td>
+					<td>{$item['nav_name']}</td>
+                    <td>
+						{if $item['unselected_icon']}
+							<img src="{$_W['attachurl']}{$item['unselected_icon']}" style="max-height:25px;"/>
+						{else}
+							未上传
+						{/if}
+					</td>
+					<td>
+						{if $item['selected_icon']}
+							<img src="{$_W['attachurl']}{$item['selected_icon']}" style="max-height:25px;"/>
+						{else}
+							未上传
+						{/if}
+					</td>
+                    <td>
+						{if $item['url_link']}
+							已填写
+						{else}
+							未填写
+						{/if}
+					</td>
+					<td>{php echo date('Y-m-d H:i', $item['addtime'])}</td>
+                    <td style="text-align:right;">
+						<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('setting', array('op' => 'addNav', 'nav_id' => $item['nav_id']))}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('setting', array('op' => 'delNav', 'nav_id' => $item['nav_id']))}" title="删除导航" onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+    </form>
+</div>

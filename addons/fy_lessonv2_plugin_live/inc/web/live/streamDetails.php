@@ -1,0 +1,2 @@
+<?php
+ goto HHfaq; OC6hh: if (!empty($stream)) { goto iVysN; } goto YfIL5; F6FJA: $stream = pdo_get($this->table_live_stream, array("\165\x6e\151\x61\x63\151\144" => $uniacid, "\x69\x64" => $id)); goto OC6hh; YfIL5: message("\347\x9b\264\xe6\222\255\346\265\201\xe5\234\260\xe5\x9d\200\xe9\224\x99\xe8\257\257"); goto nVVnp; HHfaq: $id = intval($_GPC["\151\x64"]); goto F6FJA; nVVnp: iVysN:

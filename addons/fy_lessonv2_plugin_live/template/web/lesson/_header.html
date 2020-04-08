@@ -1,0 +1,6 @@
+<ul class="nav nav-tabs">
+	<li {if $op=='display'}class="active"{/if}><a href="{php echo $this->createWebUrl('lesson');}">课程列表</a></li>
+	{if $op=='postlesson'}
+	<li {if $op=='postlesson'}class="active"{/if}><a href="{php echo $this->createWebUrl('lesson', array('op'=>'postlesson','id'=>$_GPC['pid']));}">{if $_GPC['id']>0}编辑{else}添加{/if}课程</a></li>
+	{/if}
+</ul>

@@ -1,0 +1,96 @@
+<div class="w-all w-minw bg-c-32333b p-t-15 ovhidden"> 
+    {if $bottom_navigation}
+	<div class="w-main m-auto">
+        <div class="fl w-65 fs-12 ftc-a9a9a9 line-h30 ft-w-b">{php echo $friendly_link['font'] ? $friendly_link['font'] : '友情链接';}：</div>
+        <div class="fr">
+            <ul class="ql_link">
+				{loop $bottom_navigation $item}
+                <li><a href="{$item['url_link']}" class="more" target="_blank">{$item['nav_name']}</a></li>
+				{/loop}
+                <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+    <!--分割线 start-->
+    <div class="w-main m-auto">
+        <div class="w-main fl hg-12"></div>
+        <div class="w-main fl hg-1 bg-c-505050"></div>
+    </div>
+	{/if}
+
+    <div class="w-main m-auto m-b-10 ovhidden">
+        <div class="m-t-12 fl">
+			<a href="/{$uniacid}/index.html" class="m-t-25 fl">
+				<img src="{$_W['attachurl']}{$setting_pc['bottom_logo']}" width="235" height="70" alt=""/>
+			</a>
+            <div class="qlfooter_nav m-l-80 fl">               
+                <div class="ql_f_infp w-450 m-l-15 fl">
+					{if $company_info['tel']}
+						<p>电话：{$company_info['tel']}</p>
+					{/if}
+					{if $company_info['email']}
+						<p>邮箱：{$company_info['email']}</p>
+					{/if}
+					{if $company_info['address']}
+						<p>地址：{$company_info['address']}</p>
+					{/if}
+                </div>
+            </div>
+        </div>
+        <div class="w-340 text-c m-t-12 fr">
+			{if $setting_pc['mobile_qrcode']}
+            <div class="w-160 m-l-10 fl">
+				<img src="{$_W['attachurl']}{$setting_pc['mobile_qrcode']}" width="112" height="112" alt=""/>
+                <p class="w-all fs-12 ftc-efefef text-c line-h25 fl">手机版</p>
+            </div>
+			{/if}
+			{if $setting['qrcode']}
+            <div class="w-160 m-l-10 fl">
+				<img src="{$_W['attachurl']}{$setting['qrcode']}" width="112" height="112" alt=""/>
+                <p class="w-all fs-12 ftc-efefef text-c line-h25 fl">微信公众号</p>
+            </div>
+			{/if}
+        </div>
+    </div>
+	<div class="w-main m-auto">
+        <div class="w-main fl hg-12"></div>
+        <div class="w-main fl hg-1 bg-c-505050"></div>
+    </div>
+</div>
+
+{php include $this->template($template.'/_rightBar')}
+
+<div class="w-all w-minw bg-c-32333b p-t-20 p-b-20 ovhidden copyright">
+    <div class="w-main m-auto text-c fs-12 ftc-a9a9a9 line-24">
+		<p>{$setting['copyright']}</p>
+		<p>ICP备案号：<a href="http://beian.miit.gov.cn" target="_blank" class="ftc-a9a9a9">{$setting_pc['site_icp']}</a></p>
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+	var w = parseInt(($(window).width()-1200)/2);
+	$(".qlban_ad").css("right",w);
+
+	$("#btn-search").click(function(){
+		var keyword = $("input[name=keyword]").val();
+		var search_type = $("select[name=search_type] option:selected").val();
+
+		if(search_type==1){
+			window.location.href = "/{$uniacid}/search.html?keyword=" + keyword;
+
+		}else if(search_type==2){
+			window.location.href = "/{$uniacid}/teacherlist.html?keyword=" + keyword;
+		}
+	});
+});
+
+$("input[name=keyword]").bind('keypress', function(e) {
+	var ev = (typeof event!= 'undefined') ? window.event : e;
+	if(ev.keyCode == 13) {
+		return false;
+	}
+});
+</script>
+</body>
+</html>

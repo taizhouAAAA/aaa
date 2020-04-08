@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="x5-page-mode" content="app">
+		<title>
+			{if !empty($title) && !empty($setting['sitename'])}
+				{$title} - {$setting['sitename']}
+			{elseif !empty($title) && empty($setting['sitename'])}
+				{$title}
+			{elseif empty($title) && !empty($setting['sitename'])}
+				{$setting['sitename']}
+			{elseif empty($title) && empty($setting['sitename'])}
+				首页
+			{/if}		
+		</title>
+		<script src="{MODULE_URL}template/mobile/style/jsv2/jquery.min.js?v={$versions}"></script>
+		<script src="{MODULE_URL}template/mobile/style/jsv2/swiper.3.1.7.min.js"></script>
+		<link rel="stylesheet" href="{MODULE_URL}template/mobile/style/cssv2/weui.min.css?v={$versions}" />
+		<link rel="stylesheet" href="{MODULE_URL}template/mobile/style/cssv2/fonts/fontawesome/font-awesome.min.css?v={$versions}"/>
+		<link rel="stylesheet" href="{MODULE_URL}template/mobile/style/cssv2/index.css?v={$versions}"/>
+		{php echo register_jssdk(false);}
+		<script type="text/javascript">
+		wx.ready(function(){
+			var shareData = {
+				title: "{php echo $title ? $title : $sharelink['title']}",
+				desc: "{$sharelink['desc']}",
+				link: "{php echo $_W['siteurl'] ? $_W['siteurl'].'&uid='.$_W['member']['uid'] : $shareurl;}",
+				imgUrl: "{php echo $_W['attachurl'];}{$sharelink['images']}",
+				trigger: function (res) {},
+				complete: function (res) {},
+				success: function (res) {},
+				cancel: function (res) {},
+				fail: function (res) {}
+			};
+			wx.onMenuShareTimeline(shareData);
+			wx.onMenuShareAppMessage(shareData);
+			wx.onMenuShareQQ(shareData);
+			wx.onMenuShareWeibo(shareData);
+			wx.onMenuShareQZone(shareData);
+		});
+		</script>
+		<style type="text/css">
+		{$setting['front_color']}
+		</style>
+	</head>
+	<body>
+		<div class="tabbar tabbar_wrap page_wrap">
+			<div class="weui_tab">

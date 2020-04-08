@@ -1,0 +1,116 @@
+﻿
+/* 课程提现明细模版  */
+.lesson_cash_list {
+	height: 82px;
+	padding: 10px;
+	background: #fff;
+	margin-top: 5px;
+}
+
+.lesson_cash_list .left {
+	height: 82px;
+	width: 100%;
+	float: left;
+	color: #999;
+	margin-right: -20%;
+	font-size: 14px;
+}
+
+.lesson_cash_list .left .inner {
+	width: 70%;
+	height: 82px;
+	margin-right: -20%;
+	overflow: hidden;
+}
+
+.lesson_cash_list .left span {
+	color: #666;
+	font-size: 13px;
+	line-height: 28px;
+}
+
+.lesson_cash_list .right {
+	height: 82px;
+	width: 30%;
+	float: right;
+	font-size: 14px;
+	text-align: right;
+	line-height: 25px;
+	margin-left: -20%;
+}
+
+.lesson_cash_list .right span {
+	color: #f90;
+}
+
+.log_no {
+	height: 100px;
+	width: 100%;
+	margin: 50px 0px 60px;
+	color: #ccc;
+	font-size: 12px;
+	text-align: center;
+}
+
+#log_loading {
+	padding: 10px;
+	color: #666;
+	text-align: center;
+}
+
+/* 课程收入明细模版  */
+.lesson_income_list {
+	height: 68px;
+	padding: 10px;
+	background: #fff;
+	margin-top: 5px;
+}
+
+.lesson_income_list .left {
+	height: 68px;
+	width: 100%;
+	float: left;
+	color: #999;
+	margin-right: -20%;
+	font-size: 14px;
+}
+
+.lesson_income_list .left .inner {
+	width: 100%;
+	margin-right: -20%
+}
+
+.lesson_income_list .left span {
+	color: #666;
+	font-size: 13px;
+	line-height: 28px;
+}
+
+.lesson_income_list .right {
+	height: 68px;
+	width: 26%;
+	float: right;
+	font-size: 14px;
+	text-align: right;
+	line-height: 22px;
+	margin-left: -20%;
+}
+
+.lesson_income_list .right span {
+	color: #f90;
+}
+
+.log_no {
+	height: 100px;
+	width: 100%;
+	margin: 50px 0px 60px;
+	color: #ccc;
+	font-size: 12px;
+	text-align: center;
+}
+
+#log_loading {
+	padding: 10px;
+	color: #666;
+	text-align: center;
+}

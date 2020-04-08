@@ -1,0 +1,15 @@
+<div class="index-search">
+	<form action="{php echo $this->createMobileUrl('search');}" method="GET">
+		<input type="hidden" name="i" value="{$uniacid}"/>
+		<input type="hidden" name="c" value="entry"/>
+		<input type="hidden" name="do" value="search"/>
+		<input type="hidden" name="clear" value="1"/>
+		<input type="hidden" name="m" value="fy_lessonv2"/>
+		<div class="index-header-search">
+			<div class="u-search">
+				<i class="fa fa-search"></i>
+				<input type="search" name="keyword" class="search_input z-abled" autocorrect="off" placeholder="{php echo $index_page['searchBox'] ? $index_page['searchBox'] : '搜索您感兴趣的课程';}">
+			</div>
+		</div>
+	</form>
+</div>
