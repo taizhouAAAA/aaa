@@ -914,7 +914,6 @@ class Detail_EweiShopV2Page extends MobilePage
 				exit();
 			}
 		}
-		var_dump($goods);exit;
 
 		include $this->template();
 	}
@@ -968,7 +967,7 @@ class Detail_EweiShopV2Page extends MobilePage
 		else {
 			$ret = m('dispatch')->getDispatchPrice(1, $dispatch);
 		}
-      
+
 		return $ret;
 	}
 
